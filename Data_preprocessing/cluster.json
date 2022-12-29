@@ -4,11 +4,11 @@
         "partition": "general",
         "job-name": "{rule}_{wildcards.sample}",
         "ntasks": "1",
-        "cpus-per-task": "20",
+        "cpus-per-task": "32",
         "mem": "64g",
         "time": "120:00:00",
         "mail-type": "END",
-        "mail-user": "your email address",
+        "mail-user": "jpaulmcgann@gmail.com",
         "output": "{processedData_dir}/{wildcards.sample}/CellRanger/log/{rule}.%j.out",
         "error": "{processedData_dir}/{wildcards.sample}/CellRanger/log/{rule}.%j.err"
     },
