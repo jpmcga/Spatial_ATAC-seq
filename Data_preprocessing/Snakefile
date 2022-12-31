@@ -34,10 +34,10 @@ output = [processedData_dir +
 list_fastq={}
 for sample in samples:
     list_fastq[sample] = (fnmatch.filter(os.listdir(rawData_dir + '/' + sample),
-                                        '*1' + fastq_ext
+                                        '*R1' + fastq_ext
                                         )[0].split(".")[0],
                         fnmatch.filter(os.listdir(rawData_dir + '/' + sample),
-                                        '*2' + fastq_ext
+                                        '*R2' + fastq_ext
                                         )[0].split(".")[0]
                         )
                         
