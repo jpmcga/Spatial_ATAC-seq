@@ -151,9 +151,9 @@ rule R1_rename:
     
 rule cell_ranger:
   input:
-    in1 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R1_001.fastq",
+    in1 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R1_001.fastq.gz",
     in2 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R2_001.fastq",
-    in3 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R3_001.fastq.gz"
+    in3 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R3_001.fastq"
   output:
     processedData_dir + "/{sample}/CellRanger/{sample}/outs/fragments.tsv.gz"
   shell:
