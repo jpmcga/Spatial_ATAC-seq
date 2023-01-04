@@ -13,11 +13,9 @@ A snakemake pipeline to process spatial ATAC-seq raw data
 * [BBMap](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/installation-guide/).
 
 ## Run the pipeline
-1. Replace the cellranger-atac-cs/1.2.0/lib/python/barcodes/737K-cratac-v1.txt with the new barcodes file in this fold.
+1. Ensure cellranger-atac-cs/1.2.0/lib/python/barcodes/737K-cratac-v1.txt matches the barcode file in top directory.
 2. Configure Snakefile
-3. Configure cluster.json
-4. Configure Snakemake.sh
-5. To run the pipeline, use the command:
+3. To run the pipeline, use the command:
 ```
-sbatch Snakemake.sh
+snakemake -j 32
 ```
