@@ -6,19 +6,19 @@
 
 ## Data processing
 
-Next Generation Sequencing (NGS) was performed using the Illumina HiSeq 4000 sequencer (pair-end 150 bp mode). 
+Next Generation Sequencing (NGS) was performed using the Illumina NextSeq 2000 or NovaSeq 6000 (150:8:150). 
 
 ### 1. Raw Fastq data
 
-Read 1: contains the spatial Barcode A and Barcode B
+Read 1: contains the genomic sequence
 
-Read 2: contains the genome sequences
+Read 2: contains the spatial Barcode A and Barcode B and genomic sequence
 
 ### 2. Reformat raw Fastq file to Cell Ranger ATAC format (10x Genomics)
 
-**Raw read 1 -> New Read 1 + New Read 2**
+**Raw read 2 -> New Read 3 + New Read 2**
 
-- New Read 1: contains the genome sequences
+- New Read 3: contains the genome sequences
 
 - New Read 2: contains the spatial Barcode A and Barcode B
 
@@ -40,10 +40,7 @@ Human reference (GRCh38):
 curl -O https://cf.10xgenomics.com/supp/cell-atac/refdata-cellranger-atac-GRCh38-1.2.0.tar.gz
 ```
 
-**A preprocessing pipeline we developed using Snakemake workflow management system is in the Data_preprocessing folder. To run the pipeline, use the command:**
-```
-sbatch Snakemake.sh
-```
+**A preprocessing pipeline we developed using Snakemake workflow management system is in the Data_preprocessing folder.**
 
 ## Data visualization
 
