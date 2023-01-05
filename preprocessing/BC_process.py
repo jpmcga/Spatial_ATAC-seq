@@ -14,9 +14,9 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input",
 	required=True,
 	help="input file")
-ap.add_argument("-o1", "--output_R3",
+ap.add_argument("-o1", "--output_R1",
 	required=True,
-	help="output file R3")
+	help="output file R1")
 ap.add_argument("-o2",
 	"--output_R2",
 	required=True,
