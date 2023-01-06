@@ -29,9 +29,9 @@ list_fastq={}
 for sample in samples:
 
     # Make dict of fastq file names {sample : (r1, r2)}
-    list_fastq[sample] = (fnmatch.filter(os.listdir(f'{rawData_dir}/'{sample}),
+    list_fastq[sample] = (fnmatch.filter(os.listdir(f'{rawData_dir}/{sample}'),
                                         f'*1{fastq_ext}')[0], # name of R1
-                        fnmatch.filter(os.listdir(f'{rawData_dir}/'{sample}),
+                        fnmatch.filter(os.listdir(f'{rawData_dir}/{sample}'),
                                         f'*2{fastq_ext}')[0] # name of R2
                         )
 
@@ -75,7 +75,7 @@ rule filter_L2:
     in1 = '{qc_data}/{sample}_linker1_R1.fastq.gz',
     in2 = '{qc_data}/{sample}_linker1_R2.fastq.gz'
   output:
-    out1 = '{cr_data}/{sample}_S1_L001_R1_001.fastq.gz',
+    out1 = '{qc_data}/{sample}_qc_R1.fastq.gz',
     out2 = '{qc_data}/{sample}_qc_R2.fastq.gz'
   shell:
     '''
@@ -105,7 +105,17 @@ rule bc_process:
     --output_R3 {output.out1} \
     --output_R2 {output.out2}
     '''
-    
+
+rule R1_rename: # Needed for snakemake wildcard consistency
+  input:
+    '{qc_data}/{sample}_qc_R1.fastq.gz'
+  output:
+    '{cr_data}/{sample}_S1_L001_R1_001.fastq.gz'
+  shell:
+    '''
+    cp {input} {output}
+    '''
+
 rule cell_ranger:
   input:
     in1 = '{cr_data}/{sample}_S1_L001_R1_001.fastq.gz',
