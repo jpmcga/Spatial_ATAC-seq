@@ -17,7 +17,7 @@ mem = 64 # memory to use in cellRanger
 
 bbduk_dir = 'bbmap/bbduk.sh'
 cellranger_dir = 'cellranger-atac-2.1.0/cellranger-atac'
-ref_dir = 'refdata-cellranger-arc-mm10-2020-A-2.0.0'
+ref_dir = 'refdata-cellranger-arc-GRCh38-2020-A-2.0.0'
 
 ########################################################
 ########################################################
@@ -121,6 +121,7 @@ rule cell_ranger:
     --fastqs={cr_data} \
     --sample={wildcards.sample} \
     --localcores={core_cellRanger} \
-    --localmem={mem}
+    --localmem={mem} \
+    --force-cells=2500
     '''
     
