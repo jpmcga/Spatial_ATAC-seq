@@ -2,6 +2,7 @@
 # Process R2 for cellranger-atac pipeline
 # revised Dec 2022 for spatial ATAC v2
 ########################################################
+
 import argparse
 from Bio.SeqIO.QualityIO import FastqGeneralIterator
 from gzip import open as gzopen
