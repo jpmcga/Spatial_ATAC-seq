@@ -125,14 +125,14 @@ rule bc_process:
     "/{sample}/CellRanger/tmp_data/qc_raw_data/{sample}_raw_qc_R2.fastq.gz")
   output:
     out1 = (processedData_dir +
-            "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R1_001.fastq"
+            "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R3_001.fastq"
             ),
     out2 = (processedData_dir +
             "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R2_001.fastq"
             )
   shell:
     '''
-    python BC_process.py --input {input} --output_R1 {output.out1} --output_R2 {output.out2}
+    python BC_process.py --input {input} --output_R3 {output.out1} --output_R2 {output.out2}
     '''
     
 rule R1_rename:
@@ -141,7 +141,7 @@ rule R1_rename:
     "/{sample}/CellRanger/tmp_data/qc_raw_data/{sample}_raw_qc_R1.fastq.gz")
   output:
     (processedData_dir +
-    "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R3_001.fastq.gz")
+    "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R1_001.fastq.gz")
   shell:
     '''
     cp {input} {output}
@@ -149,9 +149,9 @@ rule R1_rename:
     
 rule cell_ranger:
   input:
-    in1 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R1_001.fastq",
+    in1 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R1_001.fastq.gz",
     in2 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R2_001.fastq",
-    in3 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R3_001.fastq.gz"
+    in3 = processedData_dir + "/{sample}/CellRanger/tmp_data/{sample}_S1_L001_R3_001.fastq"
   output:
     processedData_dir + "/{sample}/CellRanger/{sample}/outs/fragments.tsv.gz"
   shell:
