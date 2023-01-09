@@ -23,7 +23,10 @@ ref_dir = 'refdata-cellranger-arc-GRCh38-2020-A-2.0.0'
 ########################################################
 
 samples = os.listdir(rawData_dir)
-output = [f'{sample}/outs/fragments.tsv.gz' for sample in samples]
+# output = [f'{sample}/outs/fragments.tsv.gz' for sample in samples]
+output = [f'{processedData_dir}/{sample}/CellRanger/{sample}/outs/fragments.tsv.gz'
+        for sample in samples]
+
 
 list_fastq={}
 for sample in samples:
@@ -122,7 +125,7 @@ rule cell_ranger:
     in2 = '{cr_data}/{sample}_S1_L001_R2_001.fastq',
     in3 = '{cr_data}/{sample}_S1_L001_R3_001.fastq'
   output:
-    '{sample}/outs/fragments.tsv.gz'
+    processedData_dir + '/{sample}/CellRanger/{sample}/outs/fragments.tsv.gz'
   shell:
     '''
     {cellranger_dir} count \
