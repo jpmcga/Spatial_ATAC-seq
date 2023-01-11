@@ -23,10 +23,7 @@ ref_dir = 'refdata-cellranger-arc-GRCh38-2020-A-2.0.0'
 ########################################################
 
 samples = os.listdir(rawData_dir)
-# output = [f'{sample}/outs/fragments.tsv.gz' for sample in samples]
-output = [f'{processedData_dir}/{sample}/CellRanger/{sample}/outs/fragments.tsv.gz'
-        for sample in samples]
-
+output = [f'{processedData_dir}/{sample}/outs/complete.txt' for sample in samples]
 
 list_fastq={}
 for sample in samples:
@@ -75,8 +72,8 @@ rule filter_L1:
 
 rule filter_L2:
   input:
-    in1 = '{qc_data}/{sample}_linker1_R1.fastq.gz',
-    in2 = '{qc_data}/{sample}_linker1_R2.fastq.gz'
+    in1 = f'{qc_data}' + '/{sample}_linker1_R1.fastq.gz',
+    in2 = f'{qc_data}' + '/{sample}_linker1_R2.fastq.gz'
   output:
     out1 = '{qc_data}/{sample}_qc_R1.fastq.gz',
     out2 = '{qc_data}/{sample}_qc_R2.fastq.gz'
@@ -96,7 +93,7 @@ rule filter_L2:
 
 rule bc_process:
   input:
-    '{qc_data}/{sample}_qc_R2.fastq.gz'
+    f'{qc_data}' + '/{sample}_qc_R2.fastq.gz'
   output:
     out1 = '{cr_data}/{sample}_S1_L001_R3_001.fastq',
     out2 = '{cr_data}/{sample}_S1_L001_R2_001.fastq'
@@ -111,7 +108,7 @@ rule bc_process:
 
 rule R1_rename: # Needed for snakemake wildcard consistency
   input:
-    '{qc_data}/{sample}_qc_R1.fastq.gz'
+    f'{qc_data}' + '/{sample}_qc_R1.fastq.gz'
   output:
     '{cr_data}/{sample}_S1_L001_R1_001.fastq.gz'
   shell:
@@ -121,11 +118,11 @@ rule R1_rename: # Needed for snakemake wildcard consistency
 
 rule cell_ranger:
   input:
-    in1 = '{cr_data}/{sample}_S1_L001_R1_001.fastq.gz',
-    in2 = '{cr_data}/{sample}_S1_L001_R2_001.fastq',
-    in3 = '{cr_data}/{sample}_S1_L001_R3_001.fastq'
+    in1 = f'{cr_data}' + '/{sample}_S1_L001_R1_001.fastq.gz',
+    in2 = f'{cr_data}' + '/{sample}_S1_L001_R2_001.fastq',
+    in3 = f'{cr_data}' + '/{sample}_S1_L001_R3_001.fastq'
   output:
-    processedData_dir + '/{sample}/CellRanger/{sample}/outs/fragments.tsv.gz'
+    '{processedData_dir}/{sample}/outs/complete.txt'
   shell:
     '''
     {cellranger_dir} count \
@@ -136,5 +133,6 @@ rule cell_ranger:
     --localcores={core_cellRanger} \
     --localmem={mem} \
     --force-cells=2500
+    touch {output}
     '''
     
