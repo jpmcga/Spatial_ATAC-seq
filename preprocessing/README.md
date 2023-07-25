@@ -51,7 +51,7 @@ curl -O https://cf.10xgenomics.com/supp/cell-atac/refdata-cellranger-atac-GRCh38
 ## Run the pipeline
 1. Ensure cellranger-atac-cs/1.2.0/lib/python/barcodes/737K-cratac-v1.txt matches the barcode file in top directory.
 2. Configure Snakefile
-3. To run the pipeline, activate conda snakemake env and run the command:
+3. To run the pipeline, run ```conda active snakemake``` and run the command:
 ```
 snakemake -j 32
 ```
